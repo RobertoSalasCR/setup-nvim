@@ -7,6 +7,7 @@ return {
         'saadparwaiz1/cmp_luasnip',
         'lukas-reineke/lsp-format.nvim',
         'nvimdev/lspsaga.nvim',
+        'rafamadriz/friendly-snippets',
     },
     config = function()
         local lspconfig = require('lspconfig')
@@ -28,6 +29,7 @@ return {
         lspconfig.gopls.setup({ on_attach = lsp_format.on_attach })
 
         local cmp = require('cmp')
+        require('luasnip.loaders.from_vscode').lazy_load()
         local luasnip = require('luasnip')
 
         -- CMP & LuaSnip
