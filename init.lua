@@ -14,6 +14,7 @@ opt.completeopt = 'menuone,noinsert,noselect'
 --- Neovim UI
 ---------------------------------------------
 opt.number = true
+opt.relativenumber = true
 opt.showmatch = true
 opt.foldmethod = 'marker'
 opt.colorcolumn = '160'
