@@ -8,6 +8,7 @@ return {
         'lukas-reineke/lsp-format.nvim',
         'nvimdev/lspsaga.nvim',
         'rafamadriz/friendly-snippets',
+        'MarcHamamji/runner.nvim',
     },
     config = function()
         local lspconfig = require('lspconfig')
@@ -31,6 +32,9 @@ return {
         local cmp = require('cmp')
         require('luasnip.loaders.from_vscode').lazy_load()
         local luasnip = require('luasnip')
+
+        -- Runner
+        require('runner').setup({})
 
         -- CMP & LuaSnip
         cmp.setup({
@@ -67,9 +71,10 @@ return {
                 end, { 'i', 's' }),
 
             }),
+
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
-                { name = 'luasnip' }
+                { name = 'luasnip' },
             }),
         })
 
@@ -97,8 +102,8 @@ return {
                     i = { mode = { 'n' }, '<cmd>Lspsaga incoming_calls<cr>', 'Incoming Calls' },
                     o = { mode = { 'n' }, '<cmd>Lspsaga outgoing_calls<cr>', 'Outgoing Calls' },
                 },
-                d = { mode = { 'n' }, '<cmd>Lspsaga goto_definition<cr>', 'Goto Definition' },
                 f = { mode = { 'n' }, '<cmd>Lspsaga finder<cr>', 'Finder' },
+                g = { mode = { 'n' }, '<cmd>Lspsaga goto_definition<cr>', 'Goto Definition' },
                 h = { mode = { 'n' }, '<cmd>Lspsaga hover_doc<cr>', 'Hover Doc' },
                 i = { mode = { 'n' }, '<cmd>Lspsaga finder imp<cr>', 'Implement' },
                 l = {
@@ -111,7 +116,12 @@ return {
                     ['?'] = { mode = { 'n' }, '<cmd>help lspconfig<cr>', 'Help' },
                 },
                 o = { mode = { 'n' }, '<cmd>Lspsaga outline<cr>', 'Outline' },
-                r = { mode = { 'n' }, '<cmd>Lspsaga rename<cr>', 'Rename' },
+                r = {
+                    name = 'Runner',
+                    a = { mode = { 'n' }, '<cmd>AutoRunner<cr>', 'AutoRun On Save' },
+                    r = { mode = { 'n' }, '<cmd>Runner<cr>', 'Run' },
+                    s = { mode = { 'n' }, '<cmd>AutoRunnerStop<cr>', 'AutoRun Stop' },
+                },
                 t = { mode = { 'n', 't' }, '<cmd>Lspsaga term_toggle<cr>', 'Terminal' },
             },
         }, { prefix = '<leader>' })

@@ -4,7 +4,6 @@ return {
     dependencies = {
         'nvim-lua/plenary.nvim',
         'folke/noice.nvim',
-        'MunifTanjim/nui.nvim',
         'rcarriga/nvim-notify',
     },
     config = function()
