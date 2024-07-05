@@ -3,9 +3,6 @@ return {
     build = ':TSUpdate',
     config = function()
         require('nvim-treesitter.configs').setup({
-            hightlight = {
-                enable = true,
-            },
             ensure_installed = {
                 'lua',
                 'vim',
@@ -18,6 +15,9 @@ return {
                 'gosum',
                 'gotmpl',
                 'gowork',
+            },
+            hightlight = {
+                enable = true,
             },
         })
     end

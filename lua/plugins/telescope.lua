@@ -15,6 +15,7 @@ return {
             f = {
                 name = 'Telescope',
                 b = { mode = { 'n' }, builtin.buffers, 'Buffers' },
+                c = { mode = { 'n' }, builtin.colorscheme, 'Colorscheme' },
                 f = { mode = { 'n' }, builtin.find_files, 'Find Files' },
                 g = { mode = { 'n' }, builtin.live_grep, 'Live Grep' },
                 h = { mode = { 'n' }, builtin.help_tags, 'Help Tags' },
