@@ -5,6 +5,11 @@ return {
             ensure_installed = {
                 'lua_ls',
                 'gopls',
+                'html',
+                'cssls',
+                'tsserver',
+                'marksman',
+                'markdown_oxide',
             },
         })
     end

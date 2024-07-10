@@ -21,7 +21,7 @@ return {
         local wk = require('which-key')
         wk.register({
             e = {
-                name = 'NvimTree File Explorer',
+                name = 'File Explorer',
                 -- g? to get mappings
                 c = { mode = { 'n' }, '<cmd>NvimTreeCollapse<cr>', 'Collapse' },
                 C = { mode = { 'n' }, '<cmd>NvimTreeClipboard<cr>', 'Clipboard' },

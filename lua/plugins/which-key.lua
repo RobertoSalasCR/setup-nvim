@@ -24,6 +24,11 @@ return {
                 },
             },
             ['?'] = { mode = { 'n' }, '<cmd>help which-key<cr>', 'Help' },
+            r = {
+                name = 'State Record',
+                s = { mode = { 'n' }, '<cmd>mkview<cr>', 'Save' },
+                l = { mode = { 'n' }, '<cmd>loadview<cr>', 'Load' },
+            },
         }, { prefix = '<leader>' })
     end
 }

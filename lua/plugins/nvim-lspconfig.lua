@@ -14,10 +14,19 @@ return {
         local lspconfig = require('lspconfig')
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
         local lspsaga = require('lspsaga')
-        local servers = { 'lua_ls', 'gopls' }
         local wk = require('which-key')
+        local builtin = require('telescope.builtin')
 
         -- Lsp Servers Default Capabilities
+        local servers = {
+            'lua_ls',
+            'gopls',
+            'html',
+            'cssls',
+            'tsserver',
+            'marksman',
+            'markdown_oxide',
+        }
         for _, lsp in ipairs(servers) do
             lspconfig[lsp].setup { capabilities = capabilities, }
         end
@@ -28,6 +37,11 @@ return {
 
         lspconfig.lua_ls.setup({ on_attach = lsp_format.on_attach })
         lspconfig.gopls.setup({ on_attach = lsp_format.on_attach })
+        lspconfig.html.setup({ on_attach = lsp_format.on_attach })
+        lspconfig.cssls.setup({ on_attach = lsp_format.on_attach })
+        lspconfig.tsserver.setup({ on_attach = lsp_format.on_attach })
+        lspconfig.marksman.setup({ on_attach = lsp_format.on_attach })
+        lspconfig.markdown_oxide.setup({ on_attach = lsp_format.on_attach })
 
         local cmp = require('cmp')
         require('luasnip.loaders.from_vscode').lazy_load()
@@ -75,7 +89,24 @@ return {
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
+                { name = 'buffer' },
+                { name = 'path' },
+                { name = 'cmdline' },
+                { name = 'orgmode' },
             }),
+
+            cmp.setup.cmdline('/', {
+                sources = {
+                    { name = 'buffer' },
+                },
+            }),
+
+            cmp.setup.cmdline(':', {
+                sources = {
+                    { name = 'path' },
+                    { name = 'cmdline' },
+                },
+            })
         })
 
         -- Lspsaga
@@ -116,6 +147,20 @@ return {
                     ['?'] = { mode = { 'n' }, '<cmd>help lspconfig<cr>', 'Help' },
                 },
                 o = { mode = { 'n' }, '<cmd>Lspsaga outline<cr>', 'Outline' },
+                p = {
+                    name = 'Pickers',
+                    d = { mode = { 'n' }, builtin.diagnostics, 'Diagnostics' },
+                    e = { mode = { 'n' }, builtin.lsp_definitions, 'Definitions' },
+                    g = {
+                        name = 'Git',
+                        b = { mode = { 'n' }, builtin.git_branches, 'Branches' },
+                        c = { mode = { 'n' }, builtin.git_commits, 'Commits' },
+                        s = { mode = { 'n' }, builtin.git_status, 'Status' },
+                    },
+                    i = { mode = { 'n' }, builtin.lsp_implementations, 'Implementations' },
+                    r = { mode = { 'n' }, builtin.lsp_references, 'References' },
+                    t = { mode = { 'n' }, builtin.treesitter, 'Treesitter' },
+                },
                 r = {
                     name = 'Runner',
                     a = { mode = { 'n' }, '<cmd>AutoRunner<cr>', 'AutoRun On Save' },

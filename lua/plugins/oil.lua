@@ -33,7 +33,10 @@ return {
         })
         local wk = require('which-key')
         wk.register({
-            o = { mode = { 'n' }, '<cmd>Oil --float<cr>', 'Oil File Explorer' }
+            e = {
+                name = 'File Explorer',
+                o = { mode = { 'n' }, '<cmd>Oil --float<cr>', 'Oil' },
+            }
         }, { prefix = '<leader>' })
     end
 }
