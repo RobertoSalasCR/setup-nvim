@@ -88,4 +88,4 @@ end
 
 require('config.lazy')
 
-cmd('colorscheme horizon')
+cmd('colorscheme tokyonight-night')
