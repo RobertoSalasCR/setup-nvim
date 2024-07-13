@@ -28,13 +28,11 @@ require("lazy").setup({
 
 local wk = require('which-key')
 -- Which-Key Bindings
-wk.register({
-    l = {
-        name = 'Lazy',
-        o = { mode = { 'n' }, '<cmd>Lazy show<cr>', 'Show/Open' },
-        u = { mode = { 'n' }, '<cmd>Lazy update<cr>', 'Update' },
-        s = { mode = { 'n' }, '<cmd>Lazy sync<cr>', 'Sync' },
-        l = { mode = { 'n' }, '<cmd>Lazy log<cr>', 'Log' },
-        r = { mode = { 'n' }, '<cmd>Lazy restore<cr>', 'Restore' },
-    },
-}, { prefix = '<leader>' })
+wk.add({
+    { '<leader>l',  group = 'Lazy' },
+    { '<leader>lo', '<cmd>Lazy show<cr>',    desc = 'Open' },
+    { '<leader>lu', '<cmd>Lazy update<cr>',  desc = 'Update' },
+    { '<leader>ls', '<cmd>Lazy sync<cr>',    desc = 'Sync' },
+    { '<leader>ll', '<cmd>Lazy log<cr>',     desc = 'Log' },
+    { '<leader>lr', '<cmd>Lazy restore<cr>', desc = 'Restore' },
+})

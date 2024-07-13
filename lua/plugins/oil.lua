@@ -32,11 +32,8 @@ return {
             delete_to_trash = true,
         })
         local wk = require('which-key')
-        wk.register({
-            e = {
-                name = 'File Explorer',
-                o = { mode = { 'n' }, '<cmd>Oil --float<cr>', 'Oil' },
-            }
-        }, { prefix = '<leader>' })
+        wk.add({
+            { '<leader>eo', '<cmd>Oil --float<cr>', desc = 'Oil' }
+        })
     end
 }

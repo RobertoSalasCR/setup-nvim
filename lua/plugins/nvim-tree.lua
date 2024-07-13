@@ -19,17 +19,13 @@ return {
 
         -- Which-Key Bindings
         local wk = require('which-key')
-        wk.register({
-            e = {
-                name = 'File Explorer',
-                -- g? to get mappings
-                c = { mode = { 'n' }, '<cmd>NvimTreeCollapse<cr>', 'Collapse' },
-                C = { mode = { 'n' }, '<cmd>NvimTreeClipboard<cr>', 'Clipboard' },
-                e = { mode = { 'n' }, '<cmd>NvimTreeToggle<cr>', 'Toggle' },
-                f = { mode = { 'n' }, '<cmd>NvimTreeFocus<cr>', 'Focus' },
-                r = { mode = { 'n' }, '<cmd>NvimTreeRefresh<cr>', 'Refresh' },
-                s = { mode = { 'n' }, '<cmd>NvimTreeFindFileToggle!<cr>', 'Search File' },
-            },
-        }, { prefix = '<leader>' })
+        wk.add({
+            { '<leader>e',  group = 'Explorer' },
+            { '<leader>ec', '<cmd>NvimTreeCollapse<cr>',       desc = 'Collapse' },
+            { '<leader>ee', '<cmd>NvimTreeToggle<cr>',         desc = 'Toggle' },
+            { '<leader>ef', '<cmd>NvimTreeFocus<cr>',          desc = 'Focus' },
+            { '<leader>er', '<cmd>NvimTreeRefresh<cr>',        desc = 'Refresh' },
+            { '<leader>es', '<cmd>NvimTreeFindFileToggle<cr>', desc = 'Search File' },
+        })
     end
 }

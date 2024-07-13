@@ -10,12 +10,9 @@ return {
         vim.api.nvim_create_user_command('PeekOpen', peek.open, {})
         vim.api.nvim_create_user_command('PeekClose', peek.close, {})
         -- which-Key Bindings
-        wk.register({
-            p = {
-                name = 'Markdown Preview',
-                c = { mode = { 'n' }, '<cmd>PeekClose<cr>', 'Peek Close' },
-                o = { mode = { 'n' }, '<cmd>PeekOpen<cr>', 'Peek Open' },
-            },
-        }, { prefix = '<leader>' })
+        wk.add({
+            { '<leader>pc', '<cmd>PeekClose<cr>', desc = 'Close' },
+            { '<leader>po', '<cmd>PeekOpen<cr>',  desc = 'Open' },
+        })
     end
 }

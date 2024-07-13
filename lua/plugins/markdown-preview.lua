@@ -14,13 +14,9 @@ return {
         local wk = require('which-key')
 
         -- which-key bindings
-        wk.register({
-            p = {
-                name = 'Preview Markdown',
-                p = { mode = { 'n' }, '<cmd>MarkdownPreview<cr>', 'Browser Preview' },
-                s = { mode = { 'n' }, '<cmd>MarkdownPreviewStop<cr>', 'Browser Stop' },
-                t = { mode = { 'n' }, '<cmd>MarkdownPreviewToggle<cr>', 'Browser Toggle' },
-            },
-        }, { prefix = '<leader>' })
+        wk.add({
+            { '<leader>p',  group = 'Markdown' },
+            { '<leader>pp', '<cmd>MarkdownPreviewToggle<cr>', desc = 'Preview In Browser' },
+        })
     end
 }

@@ -13,14 +13,11 @@ return {
 
         -- Which-Key Bindings
         local wk = require('which-key')
-        wk.register({
-            m = {
-                name = 'Mason',
-                o = { mode = { 'n' }, '<cmd>Mason<cr>', 'Open/Show' },
-                u = { mode = { 'n' }, '<cmd>MasonUpdate<cr>', 'Update' },
-                l = { mode = { 'n' }, '<cmd>MasonLog<cr>', 'Log' },
-                ['?'] = { mode = { 'n' }, '<cmd>help mason<cr>', 'Help' },
-            },
-        }, { prefix = '<leader>' })
+        wk.add({
+            { '<leader>m',  group = 'Mason' },
+            { '<leader>mo', '<cmd>Mason<cr>',       desc = 'Open' },
+            { '<leader>mu', '<cmd>MasonUpdate<cr>', desc = 'Update' },
+            { '<leader>ml', '<cmd>MasonLog<cr>',    desc = 'Log' },
+        })
     end
 }

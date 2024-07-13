@@ -11,15 +11,11 @@ return {
             register = '+',
         })
         local wk = require('which-key')
-        wk.register({
-            c = {
-                name = 'Code',
-                p = {
-                    name = 'Pickers',
-                    c = { mode = { 'n' }, '<cmd>Colortils css list<cr>', 'CSS Color List' },
-                }
-            }
-        }, { prefix = '<leader>' })
+        wk.add({
+            { '<leader>c',   group = 'Code' },
+            { '<leader>cp',  group = 'Pickers' },
+            { '<leader>cpc', '<cmd>Colortils css list<cr>', desc = 'Color List' },
+        })
         -- Other commands require color parameters, call them from the command mode
         -- :Colortils picker <color>
         -- :Colortils lighten <color>

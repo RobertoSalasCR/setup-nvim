@@ -5,11 +5,8 @@ return {
         require('block').setup({
             automatic = false,
         })
-        wk.register({
-            c = {
-                name = 'Code',
-                b = { mode = { 'n' }, '<cmd>Block<cr>', 'Toggle Block' },
-            },
-        }, { prefix = '<leader>' })
+        wk.add({
+            { '<leader>cb', '<cmd>Block<cr>', desc = 'Toggle Block' },
+        })
     end
 }

@@ -9,10 +9,8 @@ return {
             org_default_notes_file = '~/Workspace/notes/orgfiles/refile.org',
         })
         local wk = require('which-key')
-        wk.register({
-            o = {
-                name = 'Orgmode',
-            },
-        }, { prefix = '<leader>' })
+        wk.add({
+            { '<leader>o', group = 'Orgmode' },
+        })
     end
 }

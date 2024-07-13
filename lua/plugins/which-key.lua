@@ -1,34 +1,31 @@
 return {
     'folke/which-key.nvim',
+    dependencies = {
+        'echasnovski/mini.icons',
+        version = false,
+    },
     config = function()
         vim.o.timeout = true
         vim.o.timeoutlen = 300
+        require('mini.icons').setup({})
         require('which-key').setup({})
         local wk = require('which-key')
 
         -- Which-Key Package Independent  Bindings
-        wk.register({
-            w = {
-                name = 'Window',
-                k = { mode = { 'n' }, '<c-w><c-k>', 'Move Cursor Up' },
-                j = { mode = { 'n' }, '<c-w><c-j>', 'Move Cursor Down' },
-                l = { mode = { 'n' }, '<c-w><c-l>', 'Move Cursor Right' },
-                h = { mode = { 'n' }, '<c-w><c-h>', 'Move Cursor Left' },
-                c = { mode = { 'n' }, '<c-w><c-q>', 'Close Window' },
-                r = { mode = { 'n' }, '<c-w><c-r>', 'Rotate Position' },
-                e = { mode = { 'n' }, '<c-w>=', 'Equal Size Splits' },
-                s = {
-                    name = 'Split',
-                    h = { mode = { 'n' }, '<c-w>s', 'Split Horizontal' },
-                    v = { mode = { 'n' }, '<c-w>v', 'Split Vertical' },
-                },
-            },
-            ['?'] = { mode = { 'n' }, '<cmd>help which-key<cr>', 'Help' },
-            r = {
-                name = 'State Record',
-                s = { mode = { 'n' }, '<cmd>mkview<cr>', 'Save' },
-                l = { mode = { 'n' }, '<cmd>loadview<cr>', 'Load' },
-            },
-        }, { prefix = '<leader>' })
+        wk.add({
+            { '<leader>w',        group = 'Window' },
+            { '<leader>wc',       '<c-w><c-q>',          desc = 'Close' },
+            { '<leader>wk',       '<c-w><c-k>',          desc = 'Move Cursor Up' },
+            { '<leader>wj',       '<c-w><c-j>',          desc = 'Move Cursor Down' },
+            { '<leader>wl',       '<c-w><c-l>',          desc = 'Move Cursor Right' },
+            { '<leader>wh',       '<c-w><c-h>',          desc = 'Move Cursor LLeft' },
+            { '<leader>ws',       group = 'Splits' },
+            { '<leader>wsh',      '<c-w>s',              desc = 'Horizontal' },
+            { '<leader>wsv',      '<c-w>v',              desc = 'Vertical' },
+            { '<leader>wse',      '<c-w>=',              desc = 'Equal Size' },
+            { '<leader>r',        group = 'Record State' },
+            { '<leader>rs',       '<cmd>mkview<cr>',     desc = 'Save' },
+            { '<leader>rl',       '<cmd>loadview<cr>',   desc = 'Load' },
+        })
     end
 }

@@ -14,12 +14,8 @@ return {
             },
         })
 
-        wk.register({
-            d = {
-                name = 'Dashboard',
-                d = { mode = { 'n' }, '<cmd>Dashboard<cr>', 'Dashboard' },
-                ['?'] = { mode = { 'n' }, '<cmd>help dashboard<cr>', 'Help' },
-            },
-        }, { prefix = '<leader>' })
+        wk.add({
+            { '<leader>d', '<cmd>Dashboard<cr>', desc = 'Dashboard' },
+        })
     end
 }

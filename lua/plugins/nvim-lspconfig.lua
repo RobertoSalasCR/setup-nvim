@@ -123,52 +123,32 @@ return {
         })
 
 
-        -- Which-Key bindings
-        wk.register({
-            c = {
-                name = 'Code',
-                a = { mode = { 'n' }, '<cmd>Lspsaga code_action<cr>', 'Code Action' },
-                c = {
-                    name = 'Call Hierarchy',
-                    i = { mode = { 'n' }, '<cmd>Lspsaga incoming_calls<cr>', 'Incoming Calls' },
-                    o = { mode = { 'n' }, '<cmd>Lspsaga outgoing_calls<cr>', 'Outgoing Calls' },
-                },
-                f = { mode = { 'n' }, '<cmd>Lspsaga finder<cr>', 'Finder' },
-                g = { mode = { 'n' }, '<cmd>Lspsaga goto_definition<cr>', 'Goto Definition' },
-                h = { mode = { 'n' }, '<cmd>Lspsaga hover_doc<cr>', 'Hover Doc' },
-                i = { mode = { 'n' }, '<cmd>Lspsaga finder imp<cr>', 'Implement' },
-                l = {
-                    name = 'Lsp',
-                    i = { mode = { 'n' }, '<cmd>LspInfo<cr>', 'LspInfo' },
-                    l = { mode = { 'n' }, '<cmd>LspLog<cr>', 'LspLog' },
-                    r = { mode = { 'n' }, '<cmd>LspRestart<cr>', 'LspRestart' },
-                    s = { mode = { 'n' }, '<cmd>LspStop<cr>', 'LspStop' },
-                    S = { mode = { 'n' }, '<cmd>LspStart<cr>', 'LspStart' },
-                    ['?'] = { mode = { 'n' }, '<cmd>help lspconfig<cr>', 'Help' },
-                },
-                o = { mode = { 'n' }, '<cmd>Lspsaga outline<cr>', 'Outline' },
-                p = {
-                    name = 'Pickers',
-                    d = { mode = { 'n' }, builtin.diagnostics, 'Diagnostics' },
-                    e = { mode = { 'n' }, builtin.lsp_definitions, 'Definitions' },
-                    g = {
-                        name = 'Git',
-                        b = { mode = { 'n' }, builtin.git_branches, 'Branches' },
-                        c = { mode = { 'n' }, builtin.git_commits, 'Commits' },
-                        s = { mode = { 'n' }, builtin.git_status, 'Status' },
-                    },
-                    i = { mode = { 'n' }, builtin.lsp_implementations, 'Implementations' },
-                    r = { mode = { 'n' }, builtin.lsp_references, 'References' },
-                    t = { mode = { 'n' }, builtin.treesitter, 'Treesitter' },
-                },
-                r = {
-                    name = 'Runner',
-                    a = { mode = { 'n' }, '<cmd>AutoRunner<cr>', 'AutoRun On Save' },
-                    r = { mode = { 'n' }, '<cmd>Runner<cr>', 'Run' },
-                    s = { mode = { 'n' }, '<cmd>AutoRunnerStop<cr>', 'AutoRun Stop' },
-                },
-                t = { mode = { 'n', 't' }, '<cmd>Lspsaga term_toggle<cr>', 'Terminal' },
-            },
-        }, { prefix = '<leader>' })
+        -- Which-Key Bindings
+        wk.add({
+            { '<leader>c',    group = 'Code' },
+            { '<leader>ca',   '<cmd>Lspsaga code_action<cr>',     desc = 'Code Action' },
+            { '<leader>cg',   '<cmd>Lspsaga goto_definition<cr>', desc = 'Goto Definition' },
+            { '<leader>ch',   '<cmd>Lspsaga hover_doc<cr>',       desc = 'Hover' },
+            { '<leader>cl',   group = 'Lsp' },
+            { '<leader>cli',  '<cmd>LspInfo<cr>',                 desc = 'Info' },
+            { '<leader>cll',  '<cmd>LspLog<cr>',                  desc = 'Log' },
+            { '<leader>clr',  '<cmd>LspRestart<cr>',              desc = 'Restart' },
+            { '<leader>cls',  '<cmd>LspStart<cr>',                desc = 'Start' },
+            { '<leader>clS',  '<cmd>LspStop<cr>',                 desc = 'Stop' },
+            { '<leader>co',   '<cmd>Lspsaga outline<cr>',         desc = 'Outline' },
+            { '<leader>cp',   group = 'Pickers' },
+            { '<leader>cpd',  builtin.lsp_definitions,            desc = 'Definitions' },
+            { '<leader>cpg',  group = 'Git' },
+            { '<leader>cpgb', builtin.git_branches,               desc = 'Branches' },
+            { '<leader>cpgc', builtin.git_commits,                desc = 'Commmits' },
+            { '<leader>cpgs', builtin.git_status,                 desc = 'Status' },
+            { '<leader>cpi',  builtin.lsp_implementations,        desc = 'Implementations' },
+            { '<leader>cpr',  builtin.lsp_references,             desc = 'References' },
+            { '<leader>cpt',  builtin.treesitter,                 desc = 'Treesitter Mode' },
+            { '<leader>cr',   group = 'Runner' },
+            { '<leader>cra',  '<cmd>AutoRunner<cr>',              desc = 'AutoRun' },
+            { '<leader>crs',  '<cmd>AutoRunnerStop<cr>',          desc = 'Stop' },
+            { '<leader>ct',   '<cmd>Lspsaga term_toggle<cr>',     desc = 'Terminal' }
+        })
     end
 }
