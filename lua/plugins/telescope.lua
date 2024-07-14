@@ -17,7 +17,7 @@ return {
             { '<leader>fb', builtin.buffers,        desc = 'Buffers' },
             { '<leader>fc', builtin.colorscheme,    desc = 'Colorscheme' },
             { '<leader>ff', builtin.find_files,     desc = 'Find Files' },
-            { '<leader>fg', builtin.live_grep,      desc = 'Live Grep' },
+            { '<leader>fg', builtin.live_grep,      desc = 'Grep' },
             { '<leader>fh', builtin.help_tags,      desc = 'Help Tags' },
             { '<leader>fm', builtin.marks,          desc = 'Marks' },
             { '<leader>fn', '<cmd>Noice pick<cr>',  desc = 'Noice Messages' },

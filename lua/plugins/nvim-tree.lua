@@ -9,11 +9,11 @@ return {
             reload_on_bufenter = true,
             select_prompts = true,
             view = {
-                relativenumber = true,
+                relativenumber = false,
                 preserve_window_proportions = false,
             },
             actions = {
-                open_file = { quit_on_open = true },
+                open_file = { quit_on_open = false },
             },
         })
 
