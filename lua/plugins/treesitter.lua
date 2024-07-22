@@ -13,7 +13,6 @@ return {
                 'css',
                 'styled',
                 'go',
-                'printf',
                 'gomod',
                 'gosum',
                 'gotmpl',
@@ -24,10 +23,14 @@ return {
                 'mermaid',
                 'toml',
             },
+            auto_install = true,
             hightlight = {
                 enable = true,
                 disable = { 'org' },
+                aditional_vim_regex_highlighting = true,
             },
+            incremental_selection = { enable = true },
+            textobjects = { enable = true },
         })
     end
 }

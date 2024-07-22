@@ -27,6 +27,7 @@ opt.splitbelow = true
 opt.linebreak = true
 opt.wrap = false
 opt.termguicolors = true
+opt.background = 'dark'
 opt.laststatus = 3
 
 ---------------------------------------------
@@ -89,4 +90,4 @@ end
 
 require('config.lazy')
 
-cmd('colorscheme neofusion')
+cmd('colorscheme catppuccin-mocha')

@@ -28,17 +28,17 @@ return {
                 operators = { 'bold' },
                 -- miscs = {}, -- Uncomment to turn off hard-coded styles
             },
-            -- integrations = {
-            --     cmp = true,
-            --     gitsigns = true,
-            --     nvimtree = true,
-            --     treesitter = true,
-            --     notify = true,
-            --     flash = true,
-            --     barbar = true,
-            --     which_key = true,
-            --     telescope = true,
-            -- },
+            integrations = {
+                cmp = true,
+                gitsigns = true,
+                nvimtree = true,
+                treesitter = true,
+                notify = true,
+                flash = true,
+                barbar = true,
+                which_key = true,
+                telescope = true,
+            },
         })
     end
 }

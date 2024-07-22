@@ -9,10 +9,12 @@ return {
         'nvimdev/lspsaga.nvim',
         'rafamadriz/friendly-snippets',
         'MarcHamamji/runner.nvim',
+        'brenoprata10/nvim-highlight-colors',
     },
     config = function()
         local lspconfig = require('lspconfig')
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
+        local util = require('lspconfig.util')
         local lspsaga = require('lspsaga')
         local wk = require('which-key')
         local builtin = require('telescope.builtin')
@@ -27,16 +29,55 @@ return {
             'marksman',
             'markdown_oxide',
         }
+        capabilities.workspace = {
+            didChangeWatchedFiles = { dynamicRegistration = true }
+        }
         for _, lsp in ipairs(servers) do
             lspconfig[lsp].setup { capabilities = capabilities, }
         end
+
+        -- Higlight Colors
+        require('nvim-highlight-colors').setup({
+            -- Renders: Background, Foreground, Virtual
+            render = 'virtual',
+            enable_hex = true,
+            enable_short_hex = true,
+            enable_rgb = true,
+            enable_hsl = true,
+            enable_var_usage = true,
+            enable_named_colors = true,
+            enable_tailwind = true,
+        })
 
         -- LSP Format
         require('lsp-format').setup({})
         local lsp_format = require('lsp-format')
 
+        lspconfig.gopls.setup({
+            cmd = { 'gopls' },
+            filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+            root_dir = util.root_pattern('go.work', 'go.mod', '.git'),
+            settings = {
+                gopls = {
+                    semanticTokens = true,
+                    completeUnimported = true,
+                    usePlaceholders = true,
+                    staticcheck = true,
+                    analyses = { unusedparams = true },
+                    hints = {
+                        assignVariableTypes = true,
+                        compositeLiteralFields = true,
+                        compositeLiteralTypes = true,
+                        constantValues = true,
+                        functionTypeParameters = true,
+                        rangeVariableTypes = true,
+                    },
+                },
+            },
+            on_attach = lsp_format.on_attach,
+        })
+
         lspconfig.lua_ls.setup({ on_attach = lsp_format.on_attach })
-        lspconfig.gopls.setup({ on_attach = lsp_format.on_attach })
         lspconfig.html.setup({ on_attach = lsp_format.on_attach })
         lspconfig.cssls.setup({ on_attach = lsp_format.on_attach })
         lspconfig.tsserver.setup({ on_attach = lsp_format.on_attach })
@@ -58,6 +99,9 @@ return {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
                 end
+            },
+            formatting = {
+                format = require('nvim-highlight-colors').format
             },
             window = {
                 completion = cmp.config.window.bordered(),
