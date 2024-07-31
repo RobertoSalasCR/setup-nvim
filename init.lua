@@ -89,5 +89,3 @@ for _, plugin in pairs(disabled_built_ins) do
 end
 
 require('config.lazy')
-
-cmd('colorscheme catppuccin-mocha')
