@@ -3,10 +3,9 @@ return {
     config = function()
         -- Flavours night, storm, day, moon
         require('tokyonight').setup({
-            transparent = true,
-            plugins = {
-                auto = true,
-            },
+            style = "night",
+            transparent = false,
+            plugins = { auto = true },
         })
     end
 }

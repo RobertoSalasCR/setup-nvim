@@ -36,3 +36,6 @@ wk.add({
     { '<leader>ll', '<cmd>Lazy log<cr>',     desc = 'Log' },
     { '<leader>lr', '<cmd>Lazy restore<cr>', desc = 'Restore' },
 })
+
+-- Colorscheme
+vim.cmd('colorscheme mariana')

@@ -1,10 +1,9 @@
 return {
-    'Mofiqul/adwaita.nvim',
+    'rose-pine/vim',
     lazy = false,
     priority = 1000,
     config = function()
         local g = vim.g
-        g.adwaita_darker = true
-        g.adwaita_transparent = true
+        -- g.disable_bg = 1
     end
 }

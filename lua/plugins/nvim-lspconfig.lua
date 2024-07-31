@@ -10,6 +10,7 @@ return {
         'rafamadriz/friendly-snippets',
         'MarcHamamji/runner.nvim',
         'brenoprata10/nvim-highlight-colors',
+        'MysticalDevil/inlay-hints.nvim',
     },
     config = function()
         local lspconfig = require('lspconfig')
@@ -23,6 +24,7 @@ return {
         local servers = {
             'lua_ls',
             'gopls',
+            'templ',
             'html',
             'cssls',
             'tsserver',
@@ -49,6 +51,12 @@ return {
             enable_tailwind = true,
         })
 
+        -- Inlay Hints
+        require('inlay-hints').setup({
+            commands = { enable = true },
+            autocmd = { enable = true },
+        })
+
         -- LSP Format
         require('lsp-format').setup({})
         local lsp_format = require('lsp-format')
@@ -57,6 +65,7 @@ return {
             cmd = { 'gopls' },
             filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
             root_dir = util.root_pattern('go.work', 'go.mod', '.git'),
+            single_file_support = true,
             settings = {
                 gopls = {
                     semanticTokens = true,
@@ -74,13 +83,59 @@ return {
                     },
                 },
             },
-            on_attach = lsp_format.on_attach,
+            on_attach = function(client, bufnr)
+                lsp_format.on_attach(client, bufnr)
+            end,
         })
 
-        lspconfig.lua_ls.setup({ on_attach = lsp_format.on_attach })
+        lspconfig.templ.setup({
+            cmd = { 'templ', 'lsp' },
+            filetypes = { 'templ' },
+            root_dir = util.root_pattern('go.work', 'go.mod', '.git'),
+            on_attach = function(client, bufnr)
+                lsp_format.on_attach(client, bufnr)
+            end
+        })
+
+        lspconfig.lua_ls.setup({
+            cmd = { 'lua-language-server' },
+            filetypes = { 'lua' },
+            root_dir = util.root_pattern('.luarc.json', '.luarc.jsonc', '.luacheckrc', '.stylua.toml', 'selene.toml',
+                'selene.yml', '.git'),
+            single_file_support = true,
+            settings = {
+                lua = {
+                    semanticTokens = true,
+                    completeUnimported = true,
+                    usePlaceholders = true,
+                    staticcheck = true,
+                    analyses = { unusedparams = true },
+                    hints = {
+                        assignVariableTypes = true,
+                        compositeLiteralFields = true,
+                        compositeLiteralTypes = true,
+                        constantValues = true,
+                        functionTypeParameters = true,
+                        rangeVariableTypes = true,
+                    },
+                },
+            },
+            on_attach = function(client, bufnr)
+                lsp_format.on_attach(client, bufnr)
+            end,
+        })
+        lspconfig.tsserver.setup({
+            cmd = { 'typescript-language-server', '--stdio' },
+            filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+            init_options = { hostInfo = 'neovim' },
+            root_dir = util.root_pattern('tsconfig.json', 'jsconfig.json', 'package.json', '.git'),
+            single_file_support = true,
+            on_attach = function(client, bufnr)
+                lsp_format.on_attach(client, bufnr)
+            end,
+        })
         lspconfig.html.setup({ on_attach = lsp_format.on_attach })
         lspconfig.cssls.setup({ on_attach = lsp_format.on_attach })
-        lspconfig.tsserver.setup({ on_attach = lsp_format.on_attach })
         lspconfig.marksman.setup({ on_attach = lsp_format.on_attach })
         lspconfig.markdown_oxide.setup({ on_attach = lsp_format.on_attach })
 
@@ -177,8 +232,10 @@ return {
         wk.add({
             { '<leader>c',    group = 'Code' },
             { '<leader>ca',   '<cmd>Lspsaga code_action<cr>',     desc = 'Code Action' },
-            { '<leader>cg',   '<cmd>Lspsaga goto_definition<cr>', desc = 'Goto Definition' },
+            { '<leader>cd',   '<cmd>Lspsaga goto_definition<cr>', desc = 'Goto Definition' },
+            { '<leader>cg',   '<cmd>LazyGit<cr>',                 desc = 'LazyGit' },
             { '<leader>ch',   '<cmd>Lspsaga hover_doc<cr>',       desc = 'Hover' },
+            { '<leader>ci',   '<cmd>InlayHintsToggle<cr>',        desc = "Inlay Hints Toggle" },
             { '<leader>cl',   group = 'Lsp' },
             { '<leader>cli',  '<cmd>LspInfo<cr>',                 desc = 'Info' },
             { '<leader>cll',  '<cmd>LspLog<cr>',                  desc = 'Log' },
@@ -200,5 +257,8 @@ return {
             { '<leader>crs',  '<cmd>AutoRunnerStop<cr>',          desc = 'Stop' },
             { '<leader>ct',   '<cmd>Lspsaga term_toggle<cr>',     desc = 'Terminal' }
         })
+
+        -- Autocmd
+        vim.cmd([[ autocmd BufWritePost * InlayHintsToggle ]])
     end
 }

@@ -6,7 +6,9 @@ return {
         require('lackluster').setup({
             tweak_bakcground = {
                 normal = 'none',
-                telescope = 'default',
+                telescope = 'none',
+                menu = 'default',
+                popup = 'default',
             },
         })
     end
