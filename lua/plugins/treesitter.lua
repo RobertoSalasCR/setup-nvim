@@ -3,6 +3,7 @@ return {
     build = ':TSUpdate',
     config = function()
         require('nvim-treesitter.configs').setup({
+            -- Lenguajes a instalar automáticamente
             ensure_installed = {
                 'lua',
                 'vim',
@@ -22,9 +23,23 @@ return {
                 'markdown',
                 'mermaid',
                 'toml',
+                'odin',
+                'rust',
+                'elixir',
+                'pascal',
+                'zig',
+                'nim',
+                'nim_format_string',
+                'python',
+                'c_sharp',
+                'fsharp',
+                'fortran',
             },
+            -- *CLAVE:* Ignora la instalación del parser 'org' para evitar conflictos con orgmode.nvim
+            ignore_install = { 'org' },
             auto_install = true,
-            hightlight = {
+            -- CORRECCIÓN: 'hightlight' debe ser 'highlight'
+            highlight = {
                 enable = true,
                 disable = { 'org' },
                 aditional_vim_regex_highlighting = true,

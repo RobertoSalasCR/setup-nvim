@@ -7,7 +7,7 @@ return {
         g.sweetie = {
             pumblend = {
                 enable = true,
-                transparency_amount = 20,
+                transparency_amount = 80,
             },
         }
     end

@@ -38,4 +38,8 @@ wk.add({
 })
 
 -- Colorscheme
-vim.cmd('colorscheme mariana')
+vim.cmd('colorscheme oxocarbon')
+-- Comment next code if you don't want transparency
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })

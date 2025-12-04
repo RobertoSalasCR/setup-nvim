@@ -19,6 +19,7 @@ return {
                 },
                 registers = {
                     theme = 'dropdown',
+                    enable_preview = true,
                 },
                 search_history = {
                     theme = 'dropdown',

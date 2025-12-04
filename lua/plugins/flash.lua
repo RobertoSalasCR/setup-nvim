@@ -5,7 +5,7 @@ return {
         local flash = require('flash')
         local wk = require('which-key')
         wk.add({
-            { '<leader>j', function() flash.jump() end, desc = 'Jump - Flash Easy Motion', mode = { 'n', 'x', 'o' } },
+            { '<leader>j', function() flash.jump() end, desc = 'Flash Jump', mode = { 'n', 'x', 'o' } },
         })
     end
 }

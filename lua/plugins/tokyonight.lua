@@ -4,7 +4,7 @@ return {
         -- Flavours night, storm, day, moon
         require('tokyonight').setup({
             style = "night",
-            transparent = false,
+            transparent = true,
             plugins = { auto = true },
         })
     end
