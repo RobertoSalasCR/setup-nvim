@@ -37,8 +37,8 @@ return {
             'marksman',
             'markdown_oxide',
             'elixirls',
-            'zls',    -- Zig Language Server
-            'odinls', -- Odin Language Server
+            'zls', -- Zig Language Server
+            'ols', -- Odin Language Server
             -- 'rust_analyzer',
         }
         -- Configuración de capacidades de workspace para soportar watch files
@@ -197,9 +197,9 @@ return {
             })
         end
 
-        -- Configuración específica de Odin (odinls)
+        -- Configuración específica de Odin (ols)
         if lspconfig.ols and lspconfig.ols.setup then
-            lspconfig.odinls.setup({
+            lspconfig.ols.setup({
                 -- Usamos 'ols' como el comando del ejecutable
                 cmd = { 'ols' },
                 filetypes = { 'odin' },
@@ -268,10 +268,12 @@ return {
         })
 
         -- Runner: Configuración
+        local filename = vim.fn.expand("%")
         local shell_handler = require('runner.handlers.helpers').shell_handler
         require('runner').setup({})
         require('runner').set_handler('odin', shell_handler('odin run .', true))
         require('runner').set_handler('zig', shell_handler('zig build run', true))
+        require('runner').set_handler('elixir', shell_handler('elixir ' .. filename, true))
 
 
         local cmp = require('cmp')
@@ -389,6 +391,12 @@ return {
             { '<leader>cZf',  '<cmd>lua vim.lsp.buf.format()<cr>',   desc = 'Format (Zig)' },         -- Zig usa el formateador estándar LSP
             { '<leader>cZr',  '<cmd>Runner -e zig run %<cr>',        desc = 'Run Current Zig File' }, -- Ejecutar el archivo actual con Runner
             { '<leader>cZa',  '<cmd>AutoRunner<cr>',                 desc = 'AutoRun (Zig)' },        -- Nuevo binding para AutoRun
+
+            -- Comandos específicos para Elixir
+            { '<leader>cE',   group = 'Elixir' },
+            { '<leader>cEf',  '<cmd>lua vim.lsp.buf.format()<cr>',   desc = 'Format (Zig)' },     -- Zig usa el formateador estándar LSP
+            { '<leader>cEr',  '<cmd>Runner elixir %<cr>',            desc = 'Run .exs File' },    -- Ejecutar el archivo actual con Runner
+            { '<leader>cEa',  '<cmd>AutoRunner<cr>',                 desc = 'AutoRun (Elixir)' }, -- Nuevo binding para AutoRun
 
             -- Comandos específicos para Odin
             { '<leader>cO',   group = 'Odin' },

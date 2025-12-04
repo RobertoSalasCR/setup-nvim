@@ -13,6 +13,12 @@ return {
 
         -- Which-Key Package Independent  Bindings
         wk.add({
+            { '<leader>f',   group = 'File' },
+            { '<leader>fs',  '<cmd>w<cr>',                  desc = 'Save' },
+            { '<leader>fq',  '<cmd>q<cr>',                  desc = 'Quit' },
+            { '<leader>fe',  '<cmd>wq<cr>',                 desc = 'Save & Quit' },
+            { '<leader>fS',  '<cmd>w!<cr>',                 desc = 'Force Save' },
+            { '<leader>fQ',  '<cmd>q!<cr>',                 desc = 'Force Quit' },
             { '<leader>g',   group = 'LazyGit' },
             { '<leader>go',  '<cmd>LazyGit<cr>',            desc = 'Open All' },
             { '<leader>gl',  '<cmd>LazyGitLog<cr>',         desc = 'Log' },
