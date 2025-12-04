@@ -13,19 +13,23 @@ return {
 
         -- Which-Key Package Independent  Bindings
         wk.add({
-            { '<leader>w',        group = 'Window' },
-            { '<leader>wc',       '<c-w><c-q>',          desc = 'Close' },
-            { '<leader>wk',       '<c-w><c-k>',          desc = 'Move Cursor Up' },
-            { '<leader>wj',       '<c-w><c-j>',          desc = 'Move Cursor Down' },
-            { '<leader>wl',       '<c-w><c-l>',          desc = 'Move Cursor Right' },
-            { '<leader>wh',       '<c-w><c-h>',          desc = 'Move Cursor LLeft' },
-            { '<leader>ws',       group = 'Splits' },
-            { '<leader>wsh',      '<c-w>s',              desc = 'Horizontal' },
-            { '<leader>wsv',      '<c-w>v',              desc = 'Vertical' },
-            { '<leader>wse',      '<c-w>=',              desc = 'Equal Size' },
-            { '<leader>r',        group = 'Record State' },
-            { '<leader>rs',       '<cmd>mkview<cr>',     desc = 'Save' },
-            { '<leader>rl',       '<cmd>loadview<cr>',   desc = 'Load' },
+            { '<leader>g',   group = 'LazyGit' },
+            { '<leader>go',  '<cmd>LazyGit<cr>',            desc = 'Open All' },
+            { '<leader>gl',  '<cmd>LazyGitLog<cr>',         desc = 'Log' },
+            { '<leader>gc',  '<cmd>LazyGitCurrentFile<cr>', desc = 'Current File' },
+            { '<leader>w',   group = 'Window' },
+            { '<leader>wc',  '<c-w><c-q>',                  desc = 'Close' },
+            { '<leader>wk',  '<c-w><c-k>',                  desc = 'Move Cursor Up' },
+            { '<leader>wj',  '<c-w><c-j>',                  desc = 'Move Cursor Down' },
+            { '<leader>wl',  '<c-w><c-l>',                  desc = 'Move Cursor Right' },
+            { '<leader>wh',  '<c-w><c-h>',                  desc = 'Move Cursor LLeft' },
+            { '<leader>ws',  group = 'Splits' },
+            { '<leader>wsh', '<c-w>s',                      desc = 'Horizontal' },
+            { '<leader>wsv', '<c-w>v',                      desc = 'Vertical' },
+            { '<leader>wse', '<c-w>=',                      desc = 'Equal Size' },
+            { '<leader>r',   group = 'Record State' },
+            { '<leader>rs',  '<cmd>mkview<cr>',             desc = 'Save' },
+            { '<leader>rl',  '<cmd>loadview<cr>',           desc = 'Load' },
         })
     end
 }
