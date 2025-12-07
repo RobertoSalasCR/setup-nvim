@@ -7,7 +7,7 @@ return {
             style = 'vulgaris',
             toggle_style_key = nil,
             toggle_style_list = { 'vulgaris', 'multiplex', 'light' },
-            transparent = true,
+            transparent = false,
             dim_inactive = true,
             code_style = {
                 comments = { bold = false, italic = true },

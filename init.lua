@@ -9,12 +9,15 @@ opt.mouse = 'a'
 opt.clipboard = 'unnamedplus'
 opt.swapfile = false
 opt.completeopt = 'menuone,noinsert,noselect'
+opt.cursorline = true
+opt.scrolloff = 999
 
 ---------------------------------------------
 --- Neovim UI
 ---------------------------------------------
 opt.number = true
 opt.relativenumber = true
+opt.cursorline = true
 opt.showmatch = true
 opt.foldmethod = 'manual'
 opt.foldcolumn = '1'

@@ -36,6 +36,7 @@ return {
             { '<leader>r',   group = 'Record State' },
             { '<leader>rs',  '<cmd>mkview<cr>',             desc = 'Save' },
             { '<leader>rl',  '<cmd>loadview<cr>',           desc = 'Load' },
+            { '<leader>T',   '<cmd>Themery<cr>',            desc = 'Themery' },
         })
     end
 }

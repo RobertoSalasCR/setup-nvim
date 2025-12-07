@@ -14,14 +14,14 @@ return {
                 variables = true,
             },
             disable = {
-                background = true,
+                background = false,
                 term_colors = true,
                 eob_lines = true,
             },
             contrast = {
                 enable = true,
                 terminal = true,
-                filetypes = { '.go' },
+                filetypes = {},
             },
         })
     end
