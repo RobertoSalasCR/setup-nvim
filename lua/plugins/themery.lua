@@ -136,10 +136,6 @@ return {
                     colorscheme = 'habamax',
                 },
                 {
-                    name = 'Horizon',
-                    colorscheme = 'horizon',
-                },
-                {
                     name = 'Kanagawa Dragon',
                     colorscheme = 'kanagawa-dragon',
                 },
