@@ -38,7 +38,7 @@ wk.add({
 })
 
 -- Colorscheme
-vim.cmd('colorscheme everforest')
+vim.cmd('colorscheme gruvbox')
 
 -- Comment next code if you don't want transparency
 

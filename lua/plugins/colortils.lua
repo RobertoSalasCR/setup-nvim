@@ -13,8 +13,8 @@ return {
         local wk = require('which-key')
         wk.add({
             { '<leader>c',   group = 'Code' },
-            { '<leader>cp',  group = 'Pickers' },
-            { '<leader>cpc', '<cmd>Colortils css list<cr>', desc = 'Color List' },
+            { '<leader>cP',  group = 'Pickers' },
+            { '<leader>cPc', '<cmd>Colortils css list<cr>', desc = 'Color List' },
         })
         -- Other commands require color parameters, call them from the command mode
         -- :Colortils picker <color>

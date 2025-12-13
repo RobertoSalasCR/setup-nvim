@@ -34,6 +34,8 @@ return {
                 'c_sharp',
                 'fsharp',
                 'fortran',
+                'regex',
+                'bash',
             },
             -- *CLAVE:* Ignora la instalación del parser 'org' para evitar conflictos con orgmode.nvim
             ignore_install = { 'org' },
