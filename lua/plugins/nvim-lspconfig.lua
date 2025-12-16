@@ -61,6 +61,15 @@ return {
 
     -- [[ 2. Definición de la Configuración Canónica de Servidores ]]
     local SERVER_CONFIGS = {
+      -- C Lang
+      clangd = {
+          cmd = { 'clangd' },
+          filetypes = { 'c', 'cpp' },
+          root_dir = function(fname)
+              return util.root_pattern( 'clangd', 'clang-format', 'configure.ac' )
+          end,
+      },
+
       -- Go (gopls)
       gopls = {
         cmd = { 'gopls' },
@@ -172,6 +181,13 @@ return {
         cmd = { 'ols' },
         filetypes = { 'odin' },
         root_dir = util.root_pattern('build.odin', '.git'),
+      },
+
+
+      -- C3
+      c3ls = {
+          cmd = { 'c3lsp' },
+          filetypes = { 'c3', 'c3i', 'c3t' },
       },
 
       -- Elixir (elixirls)
@@ -313,7 +329,9 @@ return {
         pascal = 'fpc ' .. file .. ' && ./' .. vim.fn.expand('%:r'),
         fortran = 'gfortran ' .. file .. ' -o ' .. vim.fn.expand('%:r') .. ' && ./' .. vim.fn.expand('%:r'),
         nim = 'nim compile --run ' .. file,
-        c3 = 'c3c compile-run ' .. file,
+        c = 'clang ' .. file .. ' -o ' .. vim.fn.expand('%:r') .. ' && ./' .. vim.fn.expand('%:r'),
+        cpp = 'clang ' .. file .. ' -o ' .. vim.fn.expand('%:r') .. ' && ./' .. vim.fn.expand('%:r'),
+        c3 = 'c3c run', -- Compile a project not a single file
       }
 
       local cmd = commands[ft]
