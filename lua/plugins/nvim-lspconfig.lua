@@ -4,6 +4,7 @@
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
+    'mrcjkb/rustaceanvim',  -- Rust moderno, reemplaza rust-tools.nvim
     'L3MON4D3/LuaSnip',
     'hrsh7th/nvim-cmp',
     'hrsh7th/cmp-nvim-lsp',
@@ -14,16 +15,14 @@ return {
     'MarcHamamji/runner.nvim',
     'brenoprata10/nvim-highlight-colors',
     'MysticalDevil/inlay-hints.nvim',
-    'simrat39/rust-tools.nvim',
   },
   config = function()
-    local lspconfig = require('lspconfig')
-    local util = lspconfig.util -- Acceso a utilidades como root_pattern
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
     local lspsaga = require('lspsaga')
     local wk = require('which-key')
     local builtin = require('telescope.builtin')
     local lsp_format = require('lsp-format')
+    local util = require('lspconfig.util')
     -- Importar el helper para ejecutar comandos de shell de forma segura
     local shell_handler = require('runner.handlers.helpers').shell_handler
 
@@ -63,11 +62,11 @@ return {
     local SERVER_CONFIGS = {
       -- C Lang
       clangd = {
-          cmd = { 'clangd' },
-          filetypes = { 'c', 'cpp' },
-          root_dir = function(fname)
-              return util.root_pattern( 'clangd', 'clang-format', 'configure.ac' )
-          end,
+        cmd = { 'clangd' },
+        filetypes = { 'c', 'cpp' },
+        root_dir = function(fname)
+          return util.root_pattern('clangd', 'clang-format', 'configure.ac')(fname)
+        end,
       },
 
       -- Go (gopls)
@@ -183,11 +182,10 @@ return {
         root_dir = util.root_pattern('build.odin', '.git'),
       },
 
-
       -- C3
       c3ls = {
-          cmd = { 'c3lsp' },
-          filetypes = { 'c3', 'c3i', 'c3t' },
+        cmd = { 'c3lsp' },
+        filetypes = { 'c3', 'c3i', 'c3t' },
       },
 
       -- Elixir (elixirls)
@@ -229,39 +227,6 @@ return {
       },
     }
 
-    -- Configuración Rust-Analyzer (gestionado por rust-tools.nvim)
-    require('rust-tools').setup({
-      tools = {
-        runnables = {
-          use_telescope = true,
-        },
-        inlay_hints = {
-          only_current_line = true,
-        },
-        hover_actions = {
-          border = 'single',
-        },
-      },
-      server = {
-        cmd = { 'rust-analyzer' },
-        filetypes = { 'rust' },
-        root_dir = util.root_pattern('Cargo.toml', '.git'),
-        capabilities = capabilities,
-        settings = {
-          ['rust-analyzer'] = {
-            checkOnSave = {
-              command = 'clippy',
-              extraArgs = { '--no-deps' },
-            },
-            procMacro = {
-              enable = true,
-            },
-          },
-        },
-        on_attach = on_attach,
-      },
-    })
-
     -- [[ 3. Aplicar Configuración y Habilitación (vim.lsp.config & vim.lsp.enable) ]]
     for name, config in pairs(SERVER_CONFIGS) do
       -- 3a. Añadir opciones genéricas y on_attach
@@ -277,6 +242,24 @@ return {
       vim.lsp.enable(name)
     end
     -- [ FIN DE 3. Aplicar Configuración ]
+
+    -- [[ 4. rustaceanvim: configuración de Rust y rust-analyzer ]]
+    vim.g.rustaceanvim = {
+      server = {
+        on_attach = on_attach,
+        default_settings = {
+          ['rust-analyzer'] = {
+            checkOnSave = {
+              command = 'clippy',
+              extraArgs = { '--no-deps' },
+            },
+            procMacro = {
+              enable = true,
+            },
+          },
+        },
+      },
+    }
 
     -- Plugins de Soporte
     require('nvim-highlight-colors').setup({
@@ -445,6 +428,7 @@ return {
       { '<leader>ch', '<cmd>Lspsaga hover_doc<CR>', desc = 'Hover Doc' },
       { '<leader>ci', '<cmd>InlayHintsToggle<CR>', desc = 'Toggle Inlay Hints' },
       { '<leader>co', '<cmd>Lspsaga outline<CR>', desc = 'Code Outline' },
+      { '<leader>cw', '<cmd>Lspsaga rename<CR>', desc = 'Word Rename' },
       { '<leader>ct', '<cmd>Lspsaga term_toggle<cr>', desc = 'Terminal' },
       {
         '<leader>ce',
@@ -468,20 +452,14 @@ return {
       },
       { '<leader>coR', ':!odin run .<CR>', desc = 'Run Project' },
 
-      -- Rust
+      -- Rust (usando RustLsp de rustaceanvim)
       { '<leader>cR', group = 'Rust' },
-      { '<leader>cRa', '<cmd>RustCodeAction<CR>', desc = 'Code Action' },
-      { '<leader>cRe', '<cmd>RustExpandMacro<CR>', desc = 'Expand Macro' },
-      { '<leader>cRt', '<cmd>RustTest<CR>', desc = 'Run Current Test' },
-      { '<leader>cRu', '<cmd>RustRunnables<CR>', desc = 'Runnables' },
-      {
-        '<leader>cRR',
-        function()
-          vim.lsp.codelens.run()
-        end,
-        desc = 'Run CodeLens',
-      },
-      { '<leader>cRf', '<cmd>RustFmt<CR>', desc = 'Format' },
+      { '<leader>cRa', '<cmd>RustLsp codeAction<CR>', desc = 'Code Action' },
+      { '<leader>cRe', '<cmd>RustLsp expandMacro<CR>', desc = 'Expand Macro' },
+      { '<leader>cRt', '<cmd>RustLsp testables<CR>', desc = 'Run Tests' },
+      { '<leader>cRu', '<cmd>RustLsp runnables<CR>', desc = 'Runnables' },
+      { '<leader>cRR', '<cmd>RustLsp codelens run<CR>', desc = 'Run CodeLens' },
+      { '<leader>cRf', '<cmd>RustLsp flyCheck<CR>', desc = 'Fly Check (clippy)' },
       { '<leader>cRr', ':!cargo run<CR>', desc = 'Cargo Run' },
       {
         '<leader>cRc',

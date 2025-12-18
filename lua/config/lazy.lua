@@ -20,7 +20,7 @@ require("lazy").setup({
     },
     -- Configure any other settings here. See the documentation for more details.
     -- colorscheme that will be used when installing plugins.
-    install = { colorscheme = { "horizon" } },
+    install = { colorscheme = { "ayu" } },
     -- automatically check for plugin updates
     checker = { enabled = true },
 
@@ -38,7 +38,8 @@ wk.add({
 })
 
 -- Colorscheme
-vim.cmd('colorscheme gruvbox')
+vim.cmd('colorscheme matrix')
+
 
 -- Comment next code if you don't want transparency
 

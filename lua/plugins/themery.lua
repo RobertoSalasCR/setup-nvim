@@ -16,6 +16,10 @@ return {
                     colorscheme = 'aurora',
                 },
                 {
+                    name = 'Ayu',
+                    colorscheme = 'ayu',
+                },
+                {
                     name = 'Bamboo',
                     colorscheme = 'bamboo',
                 },
