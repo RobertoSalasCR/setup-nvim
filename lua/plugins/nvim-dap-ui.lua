@@ -95,8 +95,9 @@ return {
       },
     })
 
+
     -- =============================================================================
-    -- Which-Key mappings extra de RustLsp (runnables, tests, code actions)
+    -- Which-Key mappings extra de RustLsp (sin cargo build)
     -- =============================================================================
     wk.add({
       { '<leader>cR', group = 'Rust' },
@@ -104,6 +105,8 @@ return {
       { '<leader>cRt', '<cmd>RustLsp testables<CR>', desc = 'Rust Testables' },
       { '<leader>cRa', '<cmd>RustLsp codeAction<CR>', desc = 'Rust Code Actions' },
     })
+
+
   end,
 }
 

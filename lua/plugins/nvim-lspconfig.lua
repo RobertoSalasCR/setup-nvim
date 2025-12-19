@@ -60,6 +60,21 @@ return {
 
     -- [[ 2. Definición de la Configuración Canónica de Servidores ]]
     local SERVER_CONFIGS = {
+
+      -- Python
+      pylyzer = {
+          cmd = { 'pylyzer', '--server' },
+          filetypes = { 'python' },
+          settings = {
+              python = {
+                  inlayHints = true,
+                  diagnostics = true,
+                  smartCompletion = true,
+                  checkOnType = false,
+              },
+          },
+      },
+
       -- C Lang
       clangd = {
         cmd = { 'clangd' },
@@ -72,8 +87,8 @@ return {
       -- Go (gopls)
       gopls = {
         cmd = { 'gopls' },
-        filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
-        root_dir = util.root_pattern('go.work', 'go.mod', '.git'),
+        -- filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+        -- root_dir = util.root_pattern('go.work', 'go.mod', '.git'),
         settings = {
           gopls = {
             semanticTokens = true,
@@ -101,6 +116,17 @@ return {
         cmd = { 'templ', 'lsp' },
         filetypes = { 'templ' },
         root_dir = util.root_pattern('go.work', 'go.mod', '.git'),
+      },
+
+      -- Fortran
+      fortls = {
+          cmd = { 
+              'fortls',
+              '--lowercase_intrinsics',
+              '--hover_signature',
+              '--hover_language=fortran',
+              '--use_signature_help',
+          },
       },
 
       -- Lua (lua_ls)
@@ -186,13 +212,14 @@ return {
       c3ls = {
         cmd = { 'c3lsp' },
         filetypes = { 'c3', 'c3i', 'c3t' },
+        root_dir = util.root_pattern( '.git' ),
       },
 
       -- Elixir (elixirls)
       elixirls = {
         cmd = { 'elixir-ls' },
         filetypes = { 'elixir', 'eelixir', 'heex' },
-        root_dir = util.root_pattern('mix.exs', '.git'),
+        -- root_dir = util.root_pattern('mix.exs', '.git'),
         settings = {
           elixirLS = {
             dialyzerEnabled = false,
@@ -284,6 +311,7 @@ return {
 
     require('lsp-format').setup({})
 
+
     -- Runner: EJECUCIÓN MANUAL
     require('runner').setup({
       position = 'bot',
@@ -291,6 +319,7 @@ return {
       term_name = 'Runner',
       startinsert = false,
     })
+
 
     -- ============================================================================
     -- FUNCIÓN PARA EJECUTAR ARCHIVO ACTUAL (AUTO-DETECTA LENGUAJE)
@@ -439,18 +468,7 @@ return {
       -- Runner: ejecución manual
       { '<leader>cr', '<cmd>RunFile<cr>', desc = 'Run Current File' },
       { '<leader>cc', ':!rm -f "%:p:r"<CR>', desc = 'Clean Binary' },
-
-      -- Odin
-      { '<leader>co', group = 'Odin' },
-      { '<leader>cof', '<cmd>lua vim.lsp.buf.format()<CR>', desc = 'Format' },
-      {
-        '<leader>cor',
-        function()
-          require('runner').run('odin')
-        end,
-        desc = 'Run File',
-      },
-      { '<leader>coR', ':!odin run .<CR>', desc = 'Run Project' },
+      { '<leader>cf', '<cmd>lua vim.lsp.buf.format()<CR>', desc = 'Format' },
 
       -- Rust (usando RustLsp de rustaceanvim)
       { '<leader>cR', group = 'Rust' },
@@ -460,90 +478,6 @@ return {
       { '<leader>cRu', '<cmd>RustLsp runnables<CR>', desc = 'Runnables' },
       { '<leader>cRR', '<cmd>RustLsp codelens run<CR>', desc = 'Run CodeLens' },
       { '<leader>cRf', '<cmd>RustLsp flyCheck<CR>', desc = 'Fly Check (clippy)' },
-      { '<leader>cRr', ':!cargo run<CR>', desc = 'Cargo Run' },
-      {
-        '<leader>cRc',
-        ':!rustc "%:p" -o "%:p:r" && "%:p:r"<CR>',
-        desc = 'Run File (rustc)',
-      },
-
-      -- Go
-      { '<leader>cg', group = 'Go' },
-      { '<leader>cgf', '<cmd>lua vim.lsp.buf.format()<CR>', desc = 'Format' },
-      {
-        '<leader>cgr',
-        function()
-          require('runner').run('go')
-        end,
-        desc = 'Run File',
-      },
-
-      -- Zig
-      { '<leader>cz', group = 'Zig' },
-      { '<leader>czf', '<cmd>lua vim.lsp.buf.format()<CR>', desc = 'Format' },
-      {
-        '<leader>czr',
-        function()
-          require('runner').run('zig')
-        end,
-        desc = 'Run File',
-      },
-
-      -- Pascal
-      { '<leader>cp', group = 'Pascal' },
-      {
-        '<leader>cpf',
-        '<cmd>lua vim.lsp.buf.format()<CR>',
-        desc = 'Format (si tienes LSP)',
-      },
-      {
-        '<leader>cpr',
-        function()
-          require('runner').run('pascal')
-        end,
-        desc = 'Run File',
-      },
-
-      -- Fortran
-      { '<leader>cf', group = 'Fortran' },
-      {
-        '<leader>cff',
-        '<cmd>lua vim.lsp.buf.format()<CR>',
-        desc = 'Format (si tienes LSP)',
-      },
-      {
-        '<leader>cfr',
-        function()
-          require('runner').run('fortran')
-        end,
-        desc = 'Run File',
-      },
-
-      -- Nim
-      { '<leader>cn', group = 'Nim' },
-      { '<leader>cnf', '<cmd>lua vim.lsp.buf.format()<CR>', desc = 'Format' },
-      {
-        '<leader>cnr',
-        function()
-          require('runner').run('nim')
-        end,
-        desc = 'Run File',
-      },
-
-      -- C3
-      { '<leader>c3', group = 'C3' },
-      {
-        '<leader>c3f',
-        '<cmd>lua vim.lsp.buf.format()<CR>',
-        desc = 'Format (si tienes LSP)',
-      },
-      {
-        '<leader>c3r',
-        function()
-          require('runner').run('c3')
-        end,
-        desc = 'Run File',
-      },
 
       -- LSP Info
       { '<leader>cl', group = 'LSP' },

@@ -38,7 +38,7 @@ wk.add({
 })
 
 -- Colorscheme
-vim.cmd('colorscheme matrix')
+vim.cmd('colorscheme greenscreen')
 
 
 -- Comment next code if you don't want transparency

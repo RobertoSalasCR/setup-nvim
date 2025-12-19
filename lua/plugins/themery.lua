@@ -48,6 +48,10 @@ return {
                     colorscheme = 'borland',
                 },
                 {
+                    name = 'Citruszest',
+                    colorscheme = 'citruszest',
+                },
+                {
                     name = 'Catppuccin',
                     colorscheme = 'catppuccin',
                 },
@@ -60,8 +64,16 @@ return {
                     colorscheme = 'darker',
                 },
                 {
+                    name = 'Dark Rose',
+                    colorscheme = 'darkrose',
+                },
+                {
                     name = 'Dark Solar',
                     colorscheme = 'darksolar',
+                },
+                {
+                    name = 'Darkvoid',
+                    colorscheme = 'darkvoid',
                 },
                 {
                     name = 'Deep Ocean',
@@ -164,6 +176,10 @@ return {
                     colorscheme = 'kanagawa-wave',
                 },
                 {
+                    name = 'Komau',
+                    colorscheme = 'komau',
+                },
+                {
                     name = 'Lackluster',
                     colorscheme = 'lackluster',
                 },
@@ -228,6 +244,10 @@ return {
                     colorscheme = 'modus_vivendi',
                 },
                 {
+                    name = 'Monoglow',
+                    colorscheme = 'monoglow',
+                },
+                {
                     name = 'Monokai',
                     colorscheme = 'monokai',
                 },
@@ -248,8 +268,16 @@ return {
                     colorscheme = 'NeoSolarized',
                 },
                 {
+                    name = 'Noctis',
+                    colorscheme = 'noctis',
+                },
+                {
                     name = 'Neo Fusion',
                     colorscheme = 'neofusion',
+                },
+                {
+                    name = 'Neopywal',
+                    colorscheme = 'neopywal',
                 },
                 {
                     name = 'Nordern',
@@ -261,7 +289,7 @@ return {
                 },
                 {
                     name = 'Oxocarbon',
-                    colorscheme = 'oxocarbon',
+                    colorscheme = 'oxocarbon-lua',
                 },
                 {
                     name = 'Paper Color',
@@ -334,6 +362,10 @@ return {
                 {
                     name = 'Sweetie',
                     colorscheme = 'sweetie',
+                },
+                {
+                    name = 'TempleOS',
+                    colorscheme = 'templeos',
                 },
                 {
                     name = 'Tokyo Night',

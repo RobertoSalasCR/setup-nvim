@@ -3,18 +3,19 @@ return {
     config = function()
         require('mason-lspconfig').setup({
             ensure_installed = {
-                'clangd',
-                'lua_ls',
-                'gopls',
-                'templ',
+                'clangd',          -- C/C++
+                'lua_ls',          -- Lua
+                'gopls',           -- Go
+                'templ',           -- Go
                 'html',
                 'cssls',
-                'marksman',
-                'markdown_oxide',
-                'rust_analyzer',
-                'elixirls',
-                'ols',
-                'zls',
+                'fortls',          -- Fortran
+                'marksman',        -- Markdown
+                'markdown_oxide',  -- Markdown
+                'rust_analyzer',   -- Rust
+                'elixirls',        -- Elixir
+                'ols',             -- Odin
+                'zls',             -- Zig 
             },
         })
     end
