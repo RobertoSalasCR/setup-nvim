@@ -12,7 +12,7 @@ return {
                 'fortls',          -- Fortran
                 'marksman',        -- Markdown
                 'markdown_oxide',  -- Markdown
-                'rust_analyzer',   -- Rust
+                --'rust_analyzer',   -- Rust
                 'elixirls',        -- Elixir
                 'ols',             -- Odin
                 'zls',             -- Zig 

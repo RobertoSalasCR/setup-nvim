@@ -1,5 +1,6 @@
 -- Este archivo define y activa la configuración LSP utilizando el API canónico
 -- de Neovim 0.11+ (vim.lsp.config y vim.lsp.enable).
+-- To install rust server: in the command line via rustup > rustup component add rust-analyzer
 
 return {
   'neovim/nvim-lspconfig',
