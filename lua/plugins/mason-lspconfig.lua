@@ -11,7 +11,7 @@ return {
                 'cssls',
                 'fortls',          -- Fortran
                 'marksman',        -- Markdown
-                'markdown_oxide',  -- Markdown
+                --'markdown_oxide',  -- Markdown
                 --'rust_analyzer',   -- Rust
                 'elixirls',        -- Elixir
                 'ols',             -- Odin

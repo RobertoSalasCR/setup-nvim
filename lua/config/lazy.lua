@@ -38,7 +38,7 @@ wk.add({
 })
 
 -- Colorscheme
-vim.cmd('colorscheme darkvoid')
+vim.cmd('colorscheme neofusion')
 
 
 -- Comment next code if you don't want transparency

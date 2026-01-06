@@ -1,11 +1,10 @@
 -- Este archivo define y activa la configuración LSP utilizando el API canónico
 -- de Neovim 0.11+ (vim.lsp.config y vim.lsp.enable).
 -- To install rust server: in the command line via rustup > rustup component add rust-analyzer
-
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
-    'mrcjkb/rustaceanvim',  -- Rust moderno, reemplaza rust-tools.nvim
+    'mrcjkb/rustaceanvim', -- Rust moderno, reemplaza rust-tools.nvim
     'L3MON4D3/LuaSnip',
     'hrsh7th/nvim-cmp',
     'hrsh7th/cmp-nvim-lsp',
@@ -16,6 +15,10 @@ return {
     'MarcHamamji/runner.nvim',
     'brenoprata10/nvim-highlight-colors',
     'MysticalDevil/inlay-hints.nvim',
+    'yegappan/lsp',
+    'Angluca/nim.vim',
+    'Angluca/auto-pairs',
+
   },
   config = function()
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -26,11 +29,9 @@ return {
     local util = require('lspconfig.util')
     -- Importar el helper para ejecutar comandos de shell de forma segura
     local shell_handler = require('runner.handlers.helpers').shell_handler
-
     -- [[ 1. Definición de la función on_attach ]]
     local on_attach = function(client, bufnr)
       lsp_format.on_attach(client, bufnr) -- Autoformato si el servidor lo soporta
-
       if client.server_capabilities.documentFormattingProvider then
         vim.api.nvim_buf_set_option(
           bufnr,
@@ -38,10 +39,8 @@ return {
           'v:lua.vim.lsp.buf.format({async = true})'
         )
       end
-
       local map = vim.keymap.set
       local opts = { noremap = true, silent = true, buffer = bufnr }
-
       -- Keymaps de LSP
       map('n', 'gD', vim.lsp.buf.declaration, opts)
       map('n', 'gd', '<cmd>Lspsaga goto_definition<CR>', opts)
@@ -52,16 +51,13 @@ return {
       map('n', '<leader>rn', '<cmd>Lspsaga rename<CR>', opts)
       map('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', opts)
       map('n', '<leader>lf', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
-
       -- CORRECCIÓN: usar vim.diagnostic en lugar de vim.lsp.buf.diagnostic_*
       map('n', '[d', vim.diagnostic.goto_prev, opts)
       map('n', ']d', vim.diagnostic.goto_next, opts)
     end
     -- [ FIN DE 1. Definición de la función on_attach ]
-
     -- [[ 2. Definición de la Configuración Canónica de Servidores ]]
     local SERVER_CONFIGS = {
-
       -- Python
       pylyzer = {
           cmd = { 'pylyzer', '--server' },
@@ -75,7 +71,6 @@ return {
               },
           },
       },
-
       -- C Lang
       clangd = {
         cmd = { 'clangd' },
@@ -84,12 +79,9 @@ return {
           return util.root_pattern('clangd', 'clang-format', 'configure.ac')(fname)
         end,
       },
-
       -- Go (gopls)
       gopls = {
         cmd = { 'gopls' },
-        -- filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
-        -- root_dir = util.root_pattern('go.work', 'go.mod', '.git'),
         settings = {
           gopls = {
             semanticTokens = true,
@@ -111,17 +103,15 @@ return {
           },
         },
       },
-
       -- Templ
       templ = {
         cmd = { 'templ', 'lsp' },
         filetypes = { 'templ' },
         root_dir = util.root_pattern('go.work', 'go.mod', '.git'),
       },
-
       -- Fortran
       fortls = {
-          cmd = { 
+          cmd = {
               'fortls',
               '--lowercase_intrinsics',
               '--hover_signature',
@@ -129,7 +119,6 @@ return {
               '--use_signature_help',
           },
       },
-
       -- Lua (lua_ls)
       lua_ls = {
         cmd = { 'lua-language-server' },
@@ -163,7 +152,6 @@ return {
           },
         },
       },
-
       -- TypeScript/JavaScript (tsserver)
       tsserver = {
         cmd = { 'typescript-language-server', '--stdio' },
@@ -185,12 +173,10 @@ return {
           '.git'
         ),
       },
-
       -- Zig (zls)
       zls = {
         cmd = { 'zls' },
         filetypes = { 'zig' },
-        root_dir = util.root_pattern('build.zig', '.git'),
         settings = {
           zls = {
             inlayHints = {
@@ -201,36 +187,47 @@ return {
           },
         },
       },
-
       -- Odin (odinls)
       odinls = {
         cmd = { 'ols' },
         filetypes = { 'odin' },
         root_dir = util.root_pattern('build.odin', '.git'),
       },
-
       -- C3
       c3ls = {
         cmd = { 'c3lsp' },
         filetypes = { 'c3', 'c3i', 'c3t' },
-        root_dir = util.root_pattern( '.git' ),
       },
-
+      -- Nim (LSP oficial mantenido)
+      nim_langserver = {
+        cmd = { 'nimlangserver' },
+        filetypes = { 'nim' },
+        --root_dir = util.root_pattern('*.nimble', '.git'),
+        settings = {
+          nim = {
+            inlayHints = {
+              typeHints = true,
+              parameterHints = true,
+              exceptionHints = true,
+            },
+            completion = {
+                keywordCompletion = true,
+            },
+          },
+        },
+      },
       -- Elixir (elixirls)
       elixirls = {
         cmd = { 'elixir-ls' },
         filetypes = { 'elixir', 'eelixir', 'heex' },
-        -- root_dir = util.root_pattern('mix.exs', '.git'),
         settings = {
           elixirLS = {
             dialyzerEnabled = false,
             enableTestLenses = true,
           },
         },
-        -- Nota: on_attach especial para Elixir
         on_attach = function(client, bufnr)
           on_attach(client, bufnr)
-
           vim.api.nvim_create_autocmd('BufEnter', {
             buffer = bufnr,
             callback = function()
@@ -239,7 +236,6 @@ return {
           })
         end,
       },
-
       -- Servidores simples
       html = {
         filetypes = { 'html', 'twig' },
@@ -253,24 +249,43 @@ return {
       markdown_oxide = {
         filetypes = { 'markdown' },
       },
+      textlsp = {
+          analysers = {
+              languagetool = {
+                  enabled = true,
+                  check_text = {
+                      on_open = true,
+                      on_save = true,
+                      on_change = false,
+                  }
+              },
+              ollama = {
+                  enabled = true,
+                  check_text = {
+                      on_open = true,
+                      on_save = true,
+                      on_change = true,
+                  },
+                  model = 'gemma3:1b', 
+                  max_token = 50,
+              },
+          },
+          documents = {
+              language = 'auto',
+              txt = { parse = true, },
+          },
+      },
     }
-
     -- [[ 3. Aplicar Configuración y Habilitación (vim.lsp.config & vim.lsp.enable) ]]
     for name, config in pairs(SERVER_CONFIGS) do
-      -- 3a. Añadir opciones genéricas y on_attach
       config.capabilities = capabilities
       if not config.on_attach then
         config.on_attach = on_attach
       end
-
-      -- 3b. Definir/Extender la configuración del servidor (vim.lsp.config)
       vim.lsp.config(name, config)
-
-      -- 3c. Habilitar la configuración (vim.lsp.enable)
       vim.lsp.enable(name)
     end
     -- [ FIN DE 3. Aplicar Configuración ]
-
     -- [[ 4. rustaceanvim: configuración de Rust y rust-analyzer ]]
     vim.g.rustaceanvim = {
       server = {
@@ -288,7 +303,6 @@ return {
         },
       },
     }
-
     -- Plugins de Soporte
     require('nvim-highlight-colors').setup({
       render = 'virtual',
@@ -300,7 +314,6 @@ return {
       enable_named_colors = true,
       enable_tailwind = true,
     })
-
     require('inlay-hints').setup({
       commands = {
         enable = true,
@@ -309,10 +322,7 @@ return {
         enable = true,
       },
     })
-
     require('lsp-format').setup({})
-
-
     -- Runner: EJECUCIÓN MANUAL
     require('runner').setup({
       position = 'bot',
@@ -320,18 +330,14 @@ return {
       term_name = 'Runner',
       startinsert = false,
     })
-
-
     -- ============================================================================
     -- FUNCIÓN PARA EJECUTAR ARCHIVO ACTUAL (AUTO-DETECTA LENGUAJE)
     -- ============================================================================
     function RunCurrentFile()
       local ft = vim.bo.filetype
       local file = vim.fn.expand('%') -- Ruta relativa del archivo actual
-      local bufnr = vim.api.nvim_get_current_buf() -- Obtener numero de buffer actual
-
       local commands = {
-        zig = 'zig run ' .. file,
+        zig = 'zig build run',
         odin = 'odin run ' .. file .. ' -file',
         go = 'go run ' .. file,
         rust = 'cargo run',
@@ -341,14 +347,12 @@ return {
         lua = 'lua ' .. file,
         pascal = 'fpc ' .. file .. ' && ./' .. vim.fn.expand('%:r'),
         fortran = 'gfortran ' .. file .. ' -o ' .. vim.fn.expand('%:r') .. ' && ./' .. vim.fn.expand('%:r'),
-        nim = 'nim compile --run ' .. file,
+        nim = 'nim compile --run --hints:off ' .. file,
         c = 'clang ' .. file .. ' -o ' .. vim.fn.expand('%:r') .. ' && ./' .. vim.fn.expand('%:r'),
-        cpp = 'clang ' .. file .. ' -o ' .. vim.fn.expand('%:r') .. ' && ./' .. vim.fn.expand('%:r'),
-        c3 = 'c3c run', -- Compile a project not a single file
+        cpp = 'clang++ ' .. file .. ' -o ' .. vim.fn.expand('%:r') .. ' && ./' .. vim.fn.expand('%:r'),
+        c3 = 'c3c run',
       }
-
       local cmd = commands[ft]
-
       if cmd then
         vim.cmd('Lspsaga term_toggle')
         vim.defer_fn(function()
@@ -359,20 +363,17 @@ return {
         print('No hay comando configurado para filetype: ' .. ft)
       end
     end
-
     -- Crear comando de usuario
     vim.api.nvim_create_user_command(
       'RunFile',
       RunCurrentFile,
       { desc = 'Ejecuta el archivo actual (auto-detecta lenguaje)' }
     )
-
     -- CMP & LuaSnip, Lspsaga, Which-Key
     local cmp = require('cmp')
     require('luasnip.loaders.from_vscode').lazy_load()
     local luasnip = require('luasnip')
     require('luasnip').setup({})
-
     cmp.setup({
       snippet = {
         expand = function(args)
@@ -422,14 +423,12 @@ return {
         { name = 'orgmode' },
       }),
     })
-
     cmp.setup.cmdline('/', {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
         { name = 'buffer' },
       },
     })
-
     cmp.setup.cmdline(':', {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
@@ -437,7 +436,6 @@ return {
         { name = 'cmdline' },
       },
     })
-
     lspsaga.setup({
       lightbulb = {
         enable = false,
@@ -447,11 +445,9 @@ return {
         sign_priority = 40,
       },
     })
-
     -- Which-Key Mappings
     wk.add({
       { '<leader>c', group = 'Code' },
-
       -- LSP General
       { '<leader>ca', '<cmd>Lspsaga code_action<CR>', desc = 'Code Action' },
       { '<leader>cd', '<cmd>Lspsaga goto_definition<CR>', desc = 'Goto Definition' },
@@ -465,30 +461,27 @@ return {
         '<cmd>Lspsaga show_buf_diagnostics<cr>',
         desc = 'Show Errors/Diagnostics',
       },
-
       -- Runner: ejecución manual
       { '<leader>cr', '<cmd>RunFile<cr>', desc = 'Run Current File' },
       { '<leader>cc', ':!rm -f "%:p:r"<CR>', desc = 'Clean Binary' },
       { '<leader>cf', '<cmd>lua vim.lsp.buf.format()<CR>', desc = 'Format' },
-
       -- Rust (usando RustLsp de rustaceanvim)
       { '<leader>cR', group = 'Rust' },
-      { '<leader>cRa', '<cmd>RustLsp codeAction<CR>', desc = 'Code Action' },
-      { '<leader>cRe', '<cmd>RustLsp expandMacro<CR>', desc = 'Expand Macro' },
+      { '<leader>cRc', '<cmd>RustLsp codeAction<CR>', desc = 'Code Action' },
+      { '<leader>cRe', '<cmd>RustLsp explainError<CR>', desc = 'Explain Error' },
+      { '<leader>cRE', '<cmd>RustLsp expandMacro<CR>', desc = 'Expand Macro' },
       { '<leader>cRt', '<cmd>RustLsp testables<CR>', desc = 'Run Tests' },
+      { '<leader>cRT', '<cmd>RustLsp syntaxTree<CR>', desc = 'Syntax Tree' },
       { '<leader>cRu', '<cmd>RustLsp runnables<CR>', desc = 'Runnables' },
-      { '<leader>cRR', '<cmd>RustLsp codelens run<CR>', desc = 'Run CodeLens' },
+      { '<leader>cRl', '<cmd>RustLsp codelens run<CR>', desc = 'Run CodeLens' },
       { '<leader>cRf', '<cmd>RustLsp flyCheck<CR>', desc = 'Fly Check (clippy)' },
-
       -- LSP Info
       { '<leader>cl', group = 'LSP' },
       { '<leader>cli', '<cmd>LspInfo<CR>', desc = 'Info' },
       { '<leader>clr', '<cmd>LspRestart<CR>', desc = 'Restart' },
-
       -- Git
       { '<leader>cs', group = 'Git' },
       { '<leader>csg', '<cmd>LazyGit<CR>', desc = 'LazyGit' },
     })
   end,
 }
-
